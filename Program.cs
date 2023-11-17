@@ -39,22 +39,38 @@ await using(var context = new CustomersDbContext())
     #endregion
 
     #region QuerySpeciale3
-    var customers = await context.Customers
-    .AsNoTracking()
-    .Where(c => c.Details.Addresses.Any(a => a.City == "Roma"))
-    .Select(c => new
-    {
-        c.Name,
-        MyAddress = c.Details.Addresses.First(a => a.City == "Italia")
-    })
-    .ToListAsync();
+    //var customers = await context.Customers
+    //.AsNoTracking()
+    //.Where(c => c.Details.Addresses.Any(a => a.City == "Roma"))
+    //.Select(c => new
+    //{
+    //    c.Name,
+    //    MyAddress = c.Details.Addresses.First(a => a.City == "Italia")
+    //})
+    //.ToListAsync();
 
-    foreach (var item in customers)
-    {
-        Console.WriteLine(item.Name + " " + item.MyAddress);
-    }
+    //foreach (var item in customers)
+    //{
+    //    Console.WriteLine(item.Name + " " + item.MyAddress);
+    //}
 
     #endregion
+
+    #region Query Speciale 4
+
+    //var customers = await context.Customers
+    //  .Where(c => c.Visits.Count() > 1)
+    //  .ToListAsync();
+
+    //var from = 2010;
+    //var to = 2024;
+    //var customers = await context.Customers
+    //  .Where(c => c.Visits.Any( v => v.Year >= from && v.Year < to ))
+    //  .ToListAsync();
+    //Console.WriteLine(customers.Count);
+
+    #endregion
+
 }
 
 List<Customer> FeedData()
