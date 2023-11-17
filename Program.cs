@@ -22,11 +22,37 @@ await using(var context = new CustomersDbContext())
 
 
     #region Query speciale 1
-        var customers = await context.Customers
-            .Where(c => c.Details.Region == "Campania")
-            .ToListAsync();
+    //var customers = await context.Customers
+    //    .Where(c => c.Details.Region == "Campania")
+    //    .ToListAsync();
 
-        Console.WriteLine(customers.Count);
+    //Console.WriteLine(customers.Count);
+
+    #endregion
+
+    #region Query speciale 2
+    //var customers2 = await context.Customers
+    //     .Where(c => c.Details.Addresses.Any(a => a.City == "Roma"))
+    //     .ToListAsync();
+
+    // Console.WriteLine(customers2.Count);
+    #endregion
+
+    #region QuerySpeciale3
+    var customers = await context.Customers
+    .AsNoTracking()
+    .Where(c => c.Details.Addresses.Any(a => a.City == "Roma"))
+    .Select(c => new
+    {
+        c.Name,
+        MyAddress = c.Details.Addresses.First(a => a.City == "Italia")
+    })
+    .ToListAsync();
+
+    foreach (var item in customers)
+    {
+        Console.WriteLine(item.Name + " " + item.MyAddress);
+    }
 
     #endregion
 }
