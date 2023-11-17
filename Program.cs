@@ -71,6 +71,22 @@ await using(var context = new CustomersDbContext())
 
     #endregion
 
+    #region Query Speciale 5
+
+    var specialDays = new List<DateOnly>
+    {
+        new DateOnly(2020, 1, 1),
+        new DateOnly(2021, 1, 1),
+        new DateOnly(2022, 1, 1)
+    };
+
+    var customers = await context.Customers
+        .Where( c => specialDays.Contains(c.MemberSince))
+        .ToListAsync();
+
+
+    #endregion
+
 }
 
 List<Customer> FeedData()
